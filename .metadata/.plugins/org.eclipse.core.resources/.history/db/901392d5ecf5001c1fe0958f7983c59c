@@ -1,0 +1,164 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/jsp/common/include/common_header.jsp" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>중고거래</title>
+	<%@include file="/WEB-INF/jsp/common/include/home_static_resource.jsp" %>
+<style>
+  .header-div {
+    position: relative;
+    height: 100%;
+    
+  }
+  .left-content {
+ 	 width : 50%;
+ 	 }
+ .right-content{
+ 	 width : 50%;
+ 	}	 
+  .MainUl {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 5px;
+    list-style: none;
+  }
+  
+  .menu-li{
+  	margin-left: 20px;
+  }
+  heaher-logo {
+    
+    list-style: none;
+    white-space: nowrap;
+    color: #292a32;
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    line-height: 30px;
+    color : #6667AB;
+  }
+  .Header-Menu {
+    text-decoration: none;
+    list-style: none;
+    white-space: nowrap;
+    color: #292a32;
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    line-height: 30px;
+  }
+  .Header-Menu:hover {
+    font-size: 23px;
+  }
+  .Header-Menu-Active {
+    text-decoration: none;
+    margin-left: 24px;
+    list-style: none;
+    white-space: nowrap;
+    color: #292a32;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    line-height: 30px;
+    font-size: 24px;
+  }
+  
+  .right-content {
+    display: flex;
+    position: absolute;
+    justify-content: flex-end;
+    width: 30%;
+    right: 0px;
+  }
+
+  button {
+    cursor: pointer;
+    background: transparent;
+    color: rgb(116, 116, 123);
+    font-size: 14px;
+    min-width: 78px;
+    width: auto;
+    padding: 0px;
+    border: 0px;
+  }
+
+  button.mainButton {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 900;
+    line-height: 1.5;
+    color: #6667ab;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 3px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    border-color :#6667AB;
+    transition: color .15s 
+      ease-in-out,background-color .15s 
+      ease-in-out,border-color .15s 
+      ease-in-out,box-shadow .15s 
+      ease-in-out;
+    
+  }
+
+
+  img {
+    object-fit: cover;
+    width: 151px;
+    height: 37px;
+  }
+
+  li,label{
+    display:flex;
+    backgroundColor :#E6E6FA;
+
+  }
+  
+</style>
+</head>
+<body>
+	
+	 <div class="header-div" style="display:  flex;">
+	 
+	 <div class="left-content">
+          <ul class="MainUl">
+       		<li id="heaher-logo"><Link to="/"><img src="static_resources/img/logo.png" alt=""></img></Link></li>
+            <li id="menu-li"><a href="javascript:void(0)" class="Header-Menu">🛒마켓</a></li>
+            <li id="menu-li"><a href="javascript:void(0)" class="Header-Menu">👨‍👨왁자지껄</a></li>
+            <li id="menu-li"><a href="javascript:void(0)" class="Header-Menu">❕❔질문</a></li>
+          </ul>
+	 </div>
+     <div class="right-content">
+        <ul class="MainUl">
+          <li>
+            <Label width="300px" padding="12px 15px 11px 46px" style="">
+              <Input name="search" placeholder="물품을 검색해보세요." autocomplete="off"/>
+            </Label>
+            </li>
+		  <li><button class="mainButton">로그인</button></li>
+        </li>
+        <!--   <li>
+          <a href="javascript:void(0)" class="Header-menu">마이페이지</a>
+          </li>
+          <li >로그아웃</li>
+              -->
+         </ul>
+      </div>
+   </div>
+	
+</body>
+</html>

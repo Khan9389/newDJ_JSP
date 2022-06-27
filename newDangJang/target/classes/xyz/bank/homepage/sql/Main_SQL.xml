@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace='home.main'>
+	
+	<select id="chkId" parameterType="pentasMap" resultType="int">
+		/* home.main.chkId */
+		SELECT COUNT(USER_ID) FROM MEMBER WHERE USER_ID = #{USER_ID}
+	</select>
+	
+	<insert id="joinMbr" parameterType="pentasMap">
+		/* home.main.joinMbr */
+		INSERT INTO `test`.`member` (
+			`user_seq`, 
+			`userid`, 
+			`userpw`, 
+			`nick_name`, 
+			`name`, 
+			`email`, 
+			`phone`, 
+			`address1`, 
+			`address2`, 
+			`zipcode`, 
+			`role`, 
+			`wdate`
+		) VALUES (
+			default,
+			#{userid}, 
+			#{userpw}, 
+			#{nick_name}, 
+			#{name}, 
+			#{email}, 
+			#{phone}, 
+			#{address1}, 
+			#{address2}, 
+			#{zipcode}, 
+			#{role}, 
+			now(), 
+			);
+	</insert>
+</mapper>

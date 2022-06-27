@@ -1,0 +1,98 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header>
+	 <div className="Category">
+          <ul className="MainUl">
+       		<li><Link to="/"><img src={LogoPath} alt=""></img></Link></li>
+            <li>🛒<a href="javascript:void(0)" className="Header-Menu-Active">마켓</a></li>
+            <li>👨‍👨<a href="javascript:void(0)" className="Header-Menu">왁자지껄</a></li>
+            <li>❕❔<a href="javascript:void(0)" className="Header-Menu">질문</a></li>
+            <li>🛒<a href="javascript:void(0)" className="Header-Menu">마켓</a></li>
+            
+           
+           
+            
+            <div className="right-content">
+              <ul className="MainUl">
+                <li>
+                  <Label width="300px" padding="12px 15px 11px 46px">
+                    <MainInput
+                      name="search"
+                      placeholder="물품을 검색해보세요."
+                      autocomplete="off"
+                    />
+                  </Label>
+                </li>
+
+                {user == null ? <li>
+                  <button
+                    className="mainButton"
+                    onClick={() => {
+                      setOpenModal(true);
+                    }}
+                  >
+                    로그인
+                  </button>
+                </li>
+                :
+                <>
+                 <li>
+                <div className="container">
+                  <div className="menu-container" style={{
+                      
+                      textAlign: "center",
+                      width : '50px',
+                      height :'auto'
+                      }}>
+                    <button onClick={onClick} className="menu-trigger">
+                    <span style={{
+                      
+                      textAlign: "center",
+                      width : '380px',
+                      height :'auto'
+                      }}>MENU</span>
+                    
+                    </button>
+                    <nav
+                      ref={dropdownRef}
+                      className={`menu ${isActive ? "active" : "inactive"}`}
+                    >
+                      <ul>
+                        <li>
+                          <a href="/mybox">받은 쪽지함</a>
+                        </li>
+                        <li>
+                          <a href="/mysendbox">보낸 쪽지함</a>
+                        </li>
+                        <li>
+                          <a href="#">Saved</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+               </div>
+
+                </li>
+                <li>
+                <NavLink to="/mypage" className={({ isActive }) => "Header-Menu" + (isActive ? "-Active" : "")}>마이페이지</NavLink>
+                </li>
+                <li onClick={onClickLogout}>로그아웃</li>
+                </>
+                }
+                
+               
+              </ul>
+            </div>
+          </ul>
+          
+        </div>
+	</header>
+</body>
+</html>

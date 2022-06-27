@@ -1,0 +1,219 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/jsp/common/include/common_header.jsp" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>중고거래</title>
+	<%@include file="/WEB-INF/jsp/common/include/home_static_resource.jsp" %>
+</head>
+<script>
+$(function() {
+	$('.layerPrivacy .btn_close, .layerPrivacy .bg').click(function() {
+		$('.layerPrivacy').removeClass('on');
+	});
+	$('.layerPrivacy_poly .btn_close, .layerPrivacy_poly .bg').click(function() {
+		$('.layerPrivacy_poly').removeClass('on');
+	});
+	
+	var loginStat = "<%=loginStat%>";
+	
+	if(loginStat === "LOGIN_FAIL"){
+		alert("로그인 정보를 확인하세요.")
+	}
+	if( "<%=MBR_ID%>" == "" || "<%=MBR_ID%>" == undefined){
+		$(".offLogin").show();
+	}else{
+		$(".onLogin").show();
+	}
+	
+function goLoginPop() {
+	$("#mbrId").val('');
+	$("#mbrPw").val('');
+	$(".layerPrivacy").addClass('on');
+}
+
+function goJoinPop() {
+	$("joinId").val('');
+	$("joinPw").val('');
+	$("#joinPwChk").val('');
+	$('.layerPrivacy_poly').addClass('on');
+}
+
+function validateJoin(){
+	
+	if(cf_isEmpty($("#joinId").val().trim())){
+		alert("아이디를 입력하세요.");
+		$("#joinId").focus();  return false;
+	}
+	if(cf_isEmpty($("#joinPw").val().trim())){
+		alert("비밀번호를 입력하세요.");
+		$("#joinPw").focus();  return false;
+	}
+	
+	if($("#joinPw").val() != $("#joinPwChk").val()){
+		alert("비밀번호를 확인해주세요.")
+		$("#joinPwChk").focus(); return false;		
+	}
+	return true;
+}
+
+function joinMbr() {
+	if(!valideJoin())
+		return;
+	
+	params = {
+		mbrId : $('#joinId').val(),
+		mbrPw : CryptoJS.SHA256($("#joinPw").val().toString())
+	}
+	cf_call("/joinMbr", params, joinMbrCB);
+}
+	
+	
+})u
+</script>
+<body>
+<header>
+	 <div class="header-div" style="display:  flex;">
+	 
+	 <div class="left-content">
+          <ul class="MainUl">
+       		<li id="heaher-logo"><Link to="/"><img src="static_resources/img/logo.png" alt=""></img></Link></li>
+            <li id="menu-li"><a href="javascript:void(0)" class="Header-Menu">🛒마켓</a></li>
+            <li id="menu-li"><a href="javascript:void(0)" class="Header-Menu">👨‍👨왁자지껄</a></li>
+            <li id="menu-li"><a href="javascript:void(0)" class="Header-Menu">❕❔질문</a></li>
+          </ul>
+	 </div>
+     <div class="right-content">
+        <ul class="MainUl">
+          <li>
+            <Label width="300px" padding="12px 15px 11px 46px" style="">
+              <Input name="search" placeholder="물품을 검색해보세요." autocomplete="off"/>
+            </Label>
+            </li>
+		  <li><button class="mainButton">로그인</button></li>
+        </li>
+        <!--   <li>
+          <a href="javascript:void(0)" class="Header-menu">마이페이지</a>
+          </li>
+          <li >로그아웃</li>
+              -->
+         </ul>
+      </div>
+   </div>
+	
+</body>
+</header>
+<!-- 로그인 팝업 [s] -->
+<div class="layerPrivacy">
+	<div class="bg"></div>
+	<div class="popupcont">
+		<div class="popupBody">
+			<div class="btn_close">
+				<a href="javascript:void(0);">close</a>
+			</div>
+			<div class="content login">
+				<!-- 페이지특정 클래스 = login -->
+				<div class="cont_head">
+					<h4>로그인</h4>
+				</div>
+				<div class="cont_body">
+					<div class="form_wrap form_col_c form_full">
+						<input type="hidden" name="_csrf">
+						<div class="form_field">
+							<label class="input_label sr-only">아이디</label>
+							<div class="ui_col_12">
+								<div class="input_wrap">
+									<input type="text" name="mbrId" id="mbrId" placeholder="아이디" class="form_control" onkeyup="if( event.keyCode==13 ){ $('#mbrPw').focus();}">
+								</div>
+							</div>
+						</div>
+						
+						<div class="form_field mt10">
+							<label class="input_label sr-only">비밀번호</label>
+							<div class="ui_col_12">
+								<div class="input_wrap">
+									<input type="password" name="mbrPw" id="mbrPw" class="form_control" placeholder="비밀번호" onkeyup="if( event.keyCode==13 ){ goLogin();}">
+								</div>
+							</div>
+						</div>
+						
+						<div class="ui_row mt40">
+							<div class="ui_col_12">
+								<button type="button" class="btn btn_dark btn_block" onclick="goLogin()">
+									<span>로그인</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 로그인 팝업 [e] -->
+
+
+<!-- 회원가입 팝업 [s] -->
+<div class="layerPrivacy_poly">
+	<div class="bg"></div>
+	<div class="popupcont">
+		<div class="popupBody">
+			<div class="btn_close">
+				<a href="javascript:void(0);">close</a>
+			</div>
+			<div class="content login">
+				<div class="cont_head">
+					<h4>회원가입</h4>
+				</div>
+				<div class="cont_body">
+					<div class="form_wrap form_col_c form_full">
+						<input type="hidden" name="_csrf">
+						<div class="form_field">
+							<label class="input_label sr-only">아이디</label>
+							<div class="ui_col_12">
+								<div class="input_wrap">
+									<input type="text" name="joinId" id="joinId" placeholder="아이디" class="form_control" onkeyup="if( event.keyCode==13 ){ $('#joinPw').focus();}">
+								</div>
+							</div>
+						</div>
+						
+						<!-- 비밀번호 [s] -->
+						<div class="form_field mt10">
+							<label class="input_label sr-only">비밀번호</label>
+							<div class="ui_col_12">
+								<div class="input_wrap">
+									<input type="password" name="joinPw" id="joinPw" class="form_control" placeholder="비밀번호" onkeyup="if( event.keyCode==13 ){ $('#joinPwChk').focus();}">
+								</div>
+							</div>
+						</div>
+						<!-- 비밀번호 [e] -->
+						
+						<!-- 비밀번호 확인 [s] -->
+						<div class="form_field mt10">
+							<label class="input_label sr-only">비밀번호 확인</label>
+							<div class="ui_col_12">
+								<div class="input_wrap">
+									<input type="password" name="joinPwChk" id="joinPwChk" class="form_control" placeholder="비밀번호 화인" onkeyup="if( event.keyCode==13 ){ joinMbr();}">
+								</div>
+							</div>
+						</div>
+						<!-- 비밀번호 확인 [e] -->
+						
+						<div class="ui_row mt40">
+							<div class="ui_col_12">
+								<button type="button" class="btn btn_dark btn_block" onclick="joinMbr()">
+									<span>회원가입</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 회원가입 팝업 [e] -->
